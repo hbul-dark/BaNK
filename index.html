@@ -3,7 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Question Store By ARE</title>
+<title>Question Manager By ARE</title>
+
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <style>
 body {
@@ -163,7 +174,7 @@ fetchBtn.onclick = async ()=>{
  
  let page=1;
  let maxPages=20;
- let globalCount = 1; // ✅ global serial across pages
+ let globalCount = 1; 
  
  while(page<=maxPages){
   status.innerText = `Fetching page ${page}`;
@@ -176,14 +187,13 @@ fetchBtn.onclick = async ()=>{
    qs.forEach(q => {
     const text = q.question_text.blocks.map(b => b.text).join(' ');
     
-    // Extract Subsources (e.g., Board names or Year)
+    // Extract Subsources
     const subsources = (q.question_subsources || [])
   .map(s => {
     const shortName = s.sub_source?.name || "";
     const fullName = s.sub_source?.description || "";
     const year = s.year?.name || "";
 
-    // Combine them into a readable string: "JB - Jessore Board (2019)"
     const label = `${fullName ? ' ' + fullName : ''}${year ? ' (' + year + ') |' : ''}`;
     
     return label ? `<span style="color: #27ae60; font-size: 0.85rem; font-style: bold;">${label}</span>` : "";
@@ -217,8 +227,6 @@ fetchBtn.onclick = async ()=>{
     globalCount++;
    });
 
-    
-
    page++;
   }catch(e){
    console.log('error',e);
@@ -228,13 +236,18 @@ fetchBtn.onclick = async ()=>{
  
  status.innerText="Done";
  tabs.style.display='flex';
+ 
+ // ✅ ADDED: Tell MathJax to format the newly added equations
+ if (window.MathJax) {
+   MathJax.typesetPromise();
+ }
 }
 
 function updateSelected(){
  const selectedDiv = document.getElementById('selectedTab');
  selectedDiv.innerHTML="";
  
- let count = 1; // ✅ selected serial starts from 1
+ let count = 1; 
  
  document.querySelectorAll('#allTab .question-card').forEach(card=>{
   if(card.querySelector('input').checked){
@@ -242,9 +255,18 @@ function updateSelected(){
    clone.querySelector('input').remove();
 
    const strong = clone.querySelector('strong');
-   let text = strong.innerText.replace(/^\d+\.\s*/, ''); // remove old number
-
-   strong.innerText = count + '. ' + text; // ✅ new sequential number
+   
+   // Keep the MathJax formatting intact if it was already rendered, 
+   // just change the leading number safely.
+   let textNodes = [];
+   strong.childNodes.forEach(node => {
+     if(node.nodeType === 3) textNodes.push(node); // Get text nodes
+   });
+   if(textNodes.length > 0) {
+      textNodes[0].nodeValue = textNodes[0].nodeValue.replace(/^\d+\.\s*/, count + '. ');
+   } else {
+      strong.innerText = count + '. ' + strong.innerText.replace(/^\d+\.\s*/, '');
+   }
 
    selectedDiv.appendChild(clone);
    count++;
