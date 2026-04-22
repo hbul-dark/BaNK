@@ -32,6 +32,7 @@ select, button {
   border-radius: 8px;
   border: 1px solid #dcdfe6;
   font-size: 14px;
+  text-align:center;
 }
 
 button {
@@ -70,8 +71,8 @@ marquee {
 /* Style for the text container inside the marquee */
 marquee span {
   font-weight: bold;
-  border: 2px solid red;
-  padding: 5px 10px;
+  border: 1px solid red;
+  padding: 1px 2px;
   display: inline-block; /* Ensures the border wraps the text tightly */
 }
 .tabs {
@@ -104,10 +105,10 @@ marquee span {
 <body>
 
 <div class="container">
-<h2>📖 Question Bank</h2>
+<h2>📖 Question Store</h2>
 
 <marquee>
-  <span>NOTE : Dear user this site created by author ARE for your education exploration. Thank You.</span>
+  <span>NOTE : Dear user this site created by Author 'ARE' for your education exploration. Thank You..</span>
 </marquee>
 <select id="subjectSelect"></select>
 <select id="chapterSelect" disabled></select>
@@ -142,13 +143,13 @@ async function init(){
  })));
  
  const sub = document.getElementById('subjectSelect');
- sub.innerHTML = '<option value="">Select Subject</option>';
+ sub.innerHTML = '<option value="">SUBJECT</option>';
  subjectData.forEach((s,i)=> sub.innerHTML += `<option value="${i}">${s.name}</option>`);
 }
 
 subjectSelect.onchange = e=>{
  const chaps = subjectData[e.target.value]?.chapters || [];
- chapterSelect.innerHTML = '<option value="">Select Chapter</option>';
+ chapterSelect.innerHTML = '<option value="">CHAPTER</option>';
  chaps.forEach(c=> chapterSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`);
  chapterSelect.disabled=false;
 }
@@ -172,35 +173,51 @@ fetchBtn.onclick = async ()=>{
    const qs = json?.data?.questions || [];
    if(qs.length===0) break;
 
-   qs.forEach(q=>{
-    const text = q.question_text.blocks.map(b=>b.text).join(' ');
-    const options = (q.option || []).map((o,i)=>{
-  let optText = '';
+   qs.forEach(q => {
+    const text = q.question_text.blocks.map(b => b.text).join(' ');
+    
+    // Extract Subsources (e.g., Board names or Year)
+    const subsources = (q.question_subsources || [])
+  .map(s => {
+    const shortName = s.sub_source?.name || "";
+    const fullName = s.sub_source?.description || "";
+    const year = s.year?.name || "";
 
-  if(typeof o === 'string'){
-    optText = o;
-  } else if(o?.text){
-    optText = o.text;
-  } else if(o?.blocks){
-    optText = o.blocks.map(b=>b.text).join(' ');
-  } else {
-    optText = JSON.stringify(o); // fallback
-  }
+    // Combine them into a readable string: "JB - Jessore Board (2019)"
+    const label = `${fullName ? ' ' + fullName : ''}${year ? ' (' + year + ') |' : ''}`;
+    
+    return label ? `<span style="color: #27ae60; font-size: 0.85rem; font-style: bold;">${label}</span>` : "";
+  })
+  .join(' ');
 
-  return `<div class='options'><b>${labels[i]}:</b> ${optText}</div>`;
-}).join('');
+    const options = (q.option || []).map((o, i) => {
+      let optText = '';
+      if (typeof o === 'string') {
+        optText = o;
+      } else if (o?.text) {
+        optText = o.text;
+      } else if (o?.blocks) {
+        optText = o.blocks.map(b => b.text).join(' ');
+      } else {
+        optText = JSON.stringify(o);
+      }
+      return `<div class='options'><b>${labels[i]}:</b> ${optText}</div>`;
+    }).join('');
 
     const div = document.createElement('div');
-    div.className='question-card';
+    div.className = 'question-card';
     div.innerHTML = `
      <input type="checkbox" onchange="updateSelected()"> 
      <strong>${globalCount}. ${text}</strong>
+     <div style="margin-bottom: 5px;">${subsources}</div>
      ${options}
     `;
 
     allDiv.appendChild(div);
-    globalCount++; // ✅ increment globally
+    globalCount++;
    });
+
+    
 
    page++;
   }catch(e){
