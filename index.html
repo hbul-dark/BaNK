@@ -184,7 +184,7 @@ async function fetchByType(chapterId, typeId, typeName) {
   const labels = ['ক.', 'খ.', 'গ.', 'ঘ.'];
 
   while (isFetching) {
-    statusDiv.innerText = `Fetching ${typeName} - Page ${page}...`;
+    statusDiv.innerText = `SEARCHING ${typeName} - PAGES ${page}...`;
     try {
       const res = await fetch(`${API_BASE}/v2/question/${chapterId}?page=${page}&question_type_id[]=${typeId}`, { headers });
       const json = await res.json();
@@ -267,7 +267,7 @@ async function startFetching() {
   }
 
   isFetching = false;
-  document.getElementById('status').innerText = "Fetch Complete!";
+  document.getElementById('status').innerText = "SEARCHING COMPLETE!";
   document.getElementById('fetchBtn').disabled = false;
   document.getElementById('stopBtn').style.display = 'none';
   document.getElementById('tabs').style.display = 'flex';
