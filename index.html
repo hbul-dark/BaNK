@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Question Manager By ARE</title>
+<title>Question Bank By ARe</title>
 
 <script>
   window.MathJax = {
@@ -38,13 +38,13 @@ button:disabled { background: #ccc; cursor: not-allowed; }
   margin-left: 43px; 
 }
 
-.option-row {
+. {
   display: flex;
   gap: 10px;
   align-items: flex-start;
 }
 
-.option-row b { min-width: 25px; }
+. b { min-width: 25px; }
 .type-badge { font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; margin-right: 10px; font-weight: bold; }
 .mcq-badge { background: #e3f2fd; color: #1976d2; border: 1px solid #bbdefb; }
 .cq-badge { background: #f3e5f5; color: #7b1fa2; border: 1px solid #e1bee7; }
@@ -77,22 +77,22 @@ marquee span {
 <body>
 
 <div class="container">
-  <h2>📖 Question Manager Pro</h2>
+  <h2>📖 QUESTION STORE</h2>
   <marquee>
-  <span>NOTE : Dear user this site created by Author 'ARE' for your education exploration. Thank You..</span></marquee>
-  <select id="subjectSelect"><option value="">Loading Subjects...</option></select>
-  <select id="chapterSelect" disabled><option value="">Select Chapter</option></select>
+  <span>| NOTE : Dear user this site created by Author 'ARE' for your education exploration. Thank You.. |</span></marquee>
+  <select id="subjectSelect"><option value="">LOADING..</option></select>
+  <select id="chapterSelect" disabled><option value="">CHAPTER</option></select>
   <select id="typeSelect">
-    <option value="both">All Combined</option>
-    <option value="mcq">MCQ Only</option>
-    <option value="cq">CQ Only</option>
-    <option value="sq">Short Question Only</option>
+    <option value="both">COMBINED QUESTION</option>
+    <option value="mcq">MCQ</option>
+    <option value="cq">CQ</option>
+    <option value="sq">SHORT QUESTION</option>
   </select>
 
-  <button id="fetchBtn" disabled onclick="startFetching()">Fetch Questions</button>
-  <button id="stopBtn" onclick="stopFetching()">Stop Fetching</button>
+  <button id="fetchBtn" disabled onclick="startFetching()">Searching Questions</button>
+  <button id="stopBtn" onclick="stopFetching()">Stop Searching</button>
   
-  <div id="status">Ready</div>
+  <div id="status">READY</div>
 
   <div class="tabs" style="display:none;" id="tabs">
     <div class="tab active" onclick="showTab('all', event)">All Questions</div>
@@ -118,22 +118,37 @@ let globalCount = 1;
 
 function getCleanContent(data) {
   if (!data) return "";
+
   if (data.blocks && Array.isArray(data.blocks)) {
     let html = "";
     const entityMap = data.entityMap || {};
-    data.blocks.forEach(block => {
-      if (block.text) html += `<div>${block.text}</div>`; 
+
+    data.blocks.forEach((block, index) => {
+
+      // ✅ FIRST LINE → inline (fix "1. content")
+      if (index === 0) {
+        html += `<span>${block.text}</span>`;
+      } 
+      // ✅ REST → keep structure (fix CQ order)
+      else {
+        html += `<div>${block.text}</div>`;
+      }
+
+      // image handling
       if (block.entityRanges) {
         block.entityRanges.forEach(range => {
           const entity = entityMap[range.key];
           if (entity?.type === 'IMAGE' && entity.data?.src) {
-            html += `<img src="${entity.data.src}" class="q-image" loading="lazy">`;
+            html += `<img src="${entity.data.src}" class="q-image">`;
           }
         });
       }
+
     });
+
     return html;
   }
+
   return typeof data === 'string' ? data : (data.text || "");
 }
 
@@ -146,7 +161,7 @@ async function init() {
       subjectData.push(...(cls.subjects || []));
     })));
     const subSelect = document.getElementById('subjectSelect');
-    subSelect.innerHTML = '<option value="">Select Subject</option>';
+    subSelect.innerHTML = '<option value=""> SUBJECT</option>';
     subjectData.forEach((s, i) => subSelect.innerHTML += `<option value="${i}">${s.name}</option>`);
   } catch (e) { document.getElementById('status').innerText = "Load Error."; }
 }
@@ -154,7 +169,7 @@ async function init() {
 document.getElementById('subjectSelect').onchange = e => {
   const chaps = subjectData[e.target.value]?.chapters || [];
   const chapSelect = document.getElementById('chapterSelect');
-  chapSelect.innerHTML = '<option value="">Select Chapter</option>';
+  chapSelect.innerHTML = '<option value=""> CHAPTER</option>';
   chaps.forEach(c => chapSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`);
   chapSelect.disabled = false;
 };
@@ -197,13 +212,13 @@ async function fetchByType(chapterId, typeId, typeName) {
         if (typeName === "MCQ" && q.option && q.option.length > 0) {
           extraContent = `<div class="vertical-options">` + q.option.map((o, i) => {
             const content = getCleanContent(o);
-            return content ? `<div class="option-row"><b>${labels[i]}</b> <span>${content}</span></div>` : "";
+            return content ? `<div class=""><b>${labels[i]}</b> <span>${content}</span></div>` : "";
           }).join('') + `</div>`;
         }  
         else if ((typeName === "CQ" || typeName === "SQ") && q.sub_questions && q.sub_questions.length > 0) {
           extraContent = `<div class="${listClass}">` + q.sub_questions.map((sq, i) => {
             const partContent = getCleanContent(sq.question_text);
-            return partContent ? `<div class="option-row">${labels[i]} ${partContent}</div>` : "";
+            return partContent ? `<div class="">${labels[i]} ${partContent}</div>` : "";
           }).join('') + `</div>`;
         }
 
@@ -214,7 +229,7 @@ async function fetchByType(chapterId, typeId, typeName) {
         div.innerHTML = `
           <div>
             <input type="checkbox" onchange="updateSelected()" style="width:auto; margin-right:8px;">
-            <strong>${globalCount}. ${textContent}</strong>
+            <strong>${globalCount}.</strong> <span>${textContent}</span>
           </div>
           <div class="q-body"></div>
           <div style="margin-top:8px;">${subsources}</div>
