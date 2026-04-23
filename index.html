@@ -2,60 +2,61 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Question Bank By ARe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Question Bank Pro by ARE</title>
 
 <script>
   window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      processEscapes: true
-    }
+    tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']], processEscapes: true }
   };
 </script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <style>
-body { font-family: 'Poppins', 'Segoe UI', Arial, sans-serif; max-width: 900px; margin: auto; background: #eef2f7; padding: 20px; }
-.container { 
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { 
+  font-family: 'Segoe UI', Arial, sans-serif; 
   max-width: 100%; 
-  padding: 15px; 
-  box-sizing: border-box; 
+  margin: 0; 
+  background: #f4f7f9; 
+  padding: 10px; 
 }
-h2 { text-align: center; color: #2c3e50; margin-bottom: 20px; }
-select, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #dcdfe6; font-size: 14px; text-align: center; }
-button { background: #4a90e2; color: white; border: none; font-weight: 600; cursor: pointer; transition: background 0.3s; }
-button:hover { background: #357abd; }
-button:disabled { background: #ccc; cursor: not-allowed; }
+.container { width: 100%; max-width: 800px; margin: auto; }
+h2 { text-align: center; color: #2c3e50; font-size: 1.4rem; }
+select, button { 
+  width: 100%; padding: 14px; margin: 5px 0; border-radius: 10px; 
+  border: 1px solid #ccc; font-size: 16px; background: #fff;
+  text-align-last: center;
+}
+button { background: #4a90e2; color: #fff; border: none; font-weight: 600; cursor: pointer; }
+button:disabled { background: #ccc; }
 #stopBtn { background: #e74c3c; display: none; }
-.question-card { padding: 20px; border-radius: 10px; margin-bottom: 20px; background: #f9fbfd; border: 1px solid #e1e8ef; line-height: 1.8; position: relative; }
-.vertical-options {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;           /* Adds space between ক, খ, গ, ঘ */
-  margin-top: 15px;    /* Space between stem and sub-questions */
-  margin-left: 43px; 
+
+.question-card { 
+  padding: 15px; border-radius: 12px; margin-bottom: 15px; 
+  background: #fff; border: 1px solid #e1e8ef; line-height: 1.6; 
+}
+.q-header { display: flex; align-items: flex-start; gap: 10px; font-size: 17px; color: #1a1a1a; }
+.meta-info { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.badge {
+  background: #e8f5e9;   /* light green background */
+  color: #2e7d32;        /* dark green text */
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  border: 1px solid #2e7d32;
+  font-weight: bold;     /* 👈 makes text bold */
 }
 
-. {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-}
+.vertical-options { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; padding-left: 5px; }
+.option-row { display: flex; gap: 12px; align-items: flex-start; }
+.option-label { font-weight: bold; min-width: 25px; color: #444; }
+.q-image { max-width: 100%; height: auto; display: block; margin: 10px 0; border-radius: 6px; }
 
-. b { min-width: 25px; }
-.type-badge { font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; margin-right: 10px; font-weight: bold; }
-.mcq-badge { background: #e3f2fd; color: #1976d2; border: 1px solid #bbdefb; }
-.cq-badge { background: #f3e5f5; color: #7b1fa2; border: 1px solid #e1bee7; }
-.sq-badge { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; } /* Style for Short Question */
-.q-body { margin-top: 15px; font-size: 17px; color: #1a1a1a; white-space: pre-wrap; }
-.q-image { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 8px; border: 1px solid #eee; }
-.option-item {
-  width: 100%; 
-  box-sizing: border-box;
-  text-align: left; 
-}
+.tabs { display: flex; gap: 10px; margin: 15px 0; }
+.tab { flex: 1; padding: 12px; background: #ddd; border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; }
+.tab.active { background: #4a90e2; color: #fff; }
+.hidden { display: none; }
 marquee {
   color: green;
 }
@@ -67,11 +68,7 @@ marquee span {
   padding: 1px 2px;
   display: inline-block; /* Ensures the border wraps the text tightly */
 }
-.tabs { display: flex; gap: 10px; margin: 25px 0; border-bottom: 2px solid #dfe6ee; padding-bottom: 10px; }
-.tab { flex: 1; padding: 12px; background: #dfe6ee; border-radius: 8px; cursor: pointer; text-align: center; font-weight: 600; transition: 0.3s; }
-.tab.active { background: #4a90e2; color: #fff; }
-.hidden { display: none; }
-#status { text-align: center; color: #4a90e2; font-weight: 700; margin: 15px 0; min-height: 20px; }
+#status { text-align: center; font-weight: bold; color: #4a90e2; margin: 10px 0; }
 </style>
 </head>
 <body>
@@ -80,23 +77,19 @@ marquee span {
   <h2>📖 QUESTION STORE</h2>
   <marquee>
   <span>| NOTE : Dear user this site created by Author 'ARE' for your education exploration. Thank You.. |</span></marquee>
-  <select id="subjectSelect"><option value="">LOADING..</option></select>
-  <select id="chapterSelect" disabled><option value="">CHAPTER</option></select>
-  <select id="typeSelect">
-    <option value="both">COMBINED QUESTION</option>
-    <option value="mcq">MCQ</option>
-    <option value="cq">CQ</option>
-    <option value="sq">SHORT QUESTION</option>
-  </select>
+  
+  <select id="subjectSelect"><option value="">LOADING SUBJECTS...</option></select>
+  <select id="chapterSelect" disabled><option value="">SELECT CHAPTER</option></select>
+  <select id="typeSelect" disabled><option value="">SELECT TYPE</option></select>
 
-  <button id="fetchBtn" disabled onclick="startFetching()">Searching Questions</button>
+  <button id="fetchBtn" disabled onclick="startFetching()">Search Questions</button>
   <button id="stopBtn" onclick="stopFetching()">Stop Searching</button>
   
   <div id="status">READY</div>
 
   <div class="tabs" style="display:none;" id="tabs">
-    <div class="tab active" onclick="showTab('all', event)">All Questions</div>
-    <div class="tab" onclick="showTab('selected', event)">Selected Questions</div>
+    <div class="tab active" onclick="showTab('all', event)">All</div>
+    <div class="tab" onclick="showTab('selected', event)">Selected</div>
   </div>
 
   <div id="allTab"></div>
@@ -108,47 +101,27 @@ const API_BASE = "https://api.daricomma.com";
 const AUTH_TOKEN = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWdpc3RyYXRpb25fZGF0ZSI6IjIwMjQtMDEtMjlUMDk6NTc6NDMuMjg2WiIsImlkIjoiMzczN2FjMjYtNjYyNS00MzJmLTgzMTktNmJmNTJmM2NhNDFjIiwiZnVsbG5hbWUiOiJSYXNlbCIsInJvbGUiOiJ2aXNpdG9yIiwiZW1haWwiOm51bGwsIm1vYmlsZSI6IjAxODE3MTY2MTY4IiwiaHR0cHM6Ly9oYXN1cmEuaW8vand0L2NsYWltcyI6eyJ4LWhhc3VyYS1hbGxvd2VkLXJvbGVzIjpbInZpc2l0b3IiXSwieC1oYXN1cmEtZGVmYXVsdC1yb2xlIjoidmlzaXRvciIsIngtaGFzdXJhLXVzZXItaWQiOiIzNzM3YWMyNi02NjI1LTQzMmYtODMxOS02YmY1MmYzY2E0MWMiLCJ4LWhhc3VyYS11c2VyLXJvbGUiOiJ2aXNpdG9yIiwieC1oYXN1cmEtdXNlci1lbWFpbCI6bnVsbCwieC1oYXN1cmEtdXNlci1tb2JpbGUiOiIwMTgxNzE2NjE2OCJ9LCJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3NzY4Mzc4NzIsImV4cCI6MTc3NzQ0MjY3Mn0.Q4f9WXun23iO4U5wCJQAAdhFVgC4Q5Q60rUZjHjljYA";
 const headers = { "Authorization": AUTH_TOKEN, "Accept": "application/json" };
 
-// API Type IDs
-const MCQ_ID = "e697e742-71df-48ce-b272-773449c060ba";
-const CQ_ID = "aa27bf61-b67a-42de-a26e-0a784359a4d4";
-const SQ_ID = "306c038c-ad69-4735-8716-4bfae859bb65"; // New Short Question ID
-
-let subjectData = [], isFetching = false;
-let globalCount = 1;
+let subjectData = [], isFetching = false, globalCount = 1;
+// Added Labels Array
+const BENGALI_LABELS = ['ক.', 'খ.', 'গ.', 'ঘ.', 'ঙ.', 'চ.'];
 
 function getCleanContent(data) {
-  if (!data) return "";
-
-  if (data.blocks && Array.isArray(data.blocks)) {
+  if (!data || data === "undefined") return "";
+  if (data.blocks) {
     let html = "";
     const entityMap = data.entityMap || {};
-
     data.blocks.forEach((block, index) => {
-
-      // ✅ FIRST LINE → inline (fix "1. content")
-      if (index === 0) {
-        html += `<span>${block.text}</span>`;
-      } 
-      // ✅ REST → keep structure (fix CQ order)
-      else {
-        html += `<div>${block.text}</div>`;
-      }
-
-      // image handling
+      let txt = block.text || "";
+      html += (index === 0) ? `<span>${txt}</span>` : `<div>${txt}</div>`;
       if (block.entityRanges) {
         block.entityRanges.forEach(range => {
           const entity = entityMap[range.key];
-          if (entity?.type === 'IMAGE' && entity.data?.src) {
-            html += `<img src="${entity.data.src}" class="q-image">`;
-          }
+          if (entity?.type === 'IMAGE' && entity.data?.src) html += `<img src="${entity.data.src}" class="q-image">`;
         });
       }
-
     });
-
     return html;
   }
-
   return typeof data === 'string' ? data : (data.text || "");
 }
 
@@ -161,7 +134,7 @@ async function init() {
       subjectData.push(...(cls.subjects || []));
     })));
     const subSelect = document.getElementById('subjectSelect');
-    subSelect.innerHTML = '<option value=""> SUBJECT</option>';
+    subSelect.innerHTML = '<option value="">SUBJECT</option>';
     subjectData.forEach((s, i) => subSelect.innerHTML += `<option value="${i}">${s.name}</option>`);
   } catch (e) { document.getElementById('status').innerText = "Load Error."; }
 }
@@ -169,22 +142,48 @@ async function init() {
 document.getElementById('subjectSelect').onchange = e => {
   const chaps = subjectData[e.target.value]?.chapters || [];
   const chapSelect = document.getElementById('chapterSelect');
-  chapSelect.innerHTML = '<option value=""> CHAPTER</option>';
+  chapSelect.innerHTML = '<option value="">CHAPTER</option>';
   chaps.forEach(c => chapSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`);
   chapSelect.disabled = false;
 };
 
-document.getElementById('chapterSelect').onchange = () => document.getElementById('fetchBtn').disabled = false;
+document.getElementById('chapterSelect').onchange = async (e) => {
+  const chapterId = e.target.value;
+  const typeSelect = document.getElementById('typeSelect');
+  if (!chapterId) return;
+  document.getElementById('status').innerText = "LOADING FILTERS...";
+  try {
+    const res = await fetch(`${API_BASE}/question/filter-options/${chapterId}`, { headers });
+    const json = await res.json();
+    typeSelect.innerHTML = '<option value="">SELECT TYPE</option>';
+    json.types.forEach(type => {
+      typeSelect.innerHTML += `<option value="${type.id}">${type.name}</option>`;
+    });
+    typeSelect.disabled = false;
+    document.getElementById('status').innerText = "READY";
+  } catch (err) { document.getElementById('status').innerText = "FILTER ERROR"; }
+};
+
+document.getElementById('typeSelect').onchange = e => {
+  document.getElementById('fetchBtn').disabled = !e.target.value;
+};
+
 function stopFetching() { isFetching = false; }
 
-async function fetchByType(chapterId, typeId, typeName) {
+async function startFetching() {
+  isFetching = true;
+  globalCount = 1;
+  const chapterId = document.getElementById('chapterSelect').value;
+  const typeId = document.getElementById('typeSelect').value;
+  
+  document.getElementById('fetchBtn').disabled = true;
+  document.getElementById('stopBtn').style.display = 'block';
+  document.getElementById('allTab').innerHTML = "";
+  
   let page = 1;
-  const allDiv = document.getElementById('allTab');
-  const statusDiv = document.getElementById('status');
-  const labels = ['ক.', 'খ.', 'গ.', 'ঘ.'];
 
   while (isFetching) {
-    statusDiv.innerText = `SEARCHING ${typeName} - PAGES ${page}...`;
+    document.getElementById('status').innerText = `FETCHING PAGE ${page}...`;
     try {
       const res = await fetch(`${API_BASE}/v2/question/${chapterId}?page=${page}&question_type_id[]=${typeId}`, { headers });
       const json = await res.json();
@@ -193,81 +192,53 @@ async function fetchByType(chapterId, typeId, typeName) {
 
       qs.forEach(q => {
         const textContent = getCleanContent(q.question_text);
-        const subsources = (q.question_subsources || [])
-  .map(s => {
-    const shortName = s.sub_source?.name || "";
-    const fullName = s.sub_source?.description || "";
-    const year = s.year?.name || "";
+        if (!textContent || textContent.trim() === "") return;
 
-    // Combine them into a readable string: "JB - Jessore Board (2019)"
-    const label = `${fullName ? ' ' + fullName : ''}${year ? ' (' + year + ') |' : ''}`;
-    
-    return label ? `<span style="color: #27ae60; font-size: 0.85rem; font-style: bold;">${label}</span>` : "";
-  })
-  .join(' ');
+        const tags = (q.question_subsources || []).map(s => {
+          const board = s.sub_source?.name || "";
+          const year = s.year?.name || "";
+          return (board || year) ? `<span class="badge">${board} ${year}</span>` : "";
+        }).join(' ');
 
-        let extraContent = "";
-        const listClass = "vertical-options";
-
-        if (typeName === "MCQ" && q.option && q.option.length > 0) {
-          extraContent = `<div class="vertical-options">` + q.option.map((o, i) => {
+        let extra = "";
+        
+        // Handle Options (MCQ)
+        if (q.option && q.option.length > 0) {
+          extra = `<div class="vertical-options">` + q.option.map((o, index) => {
             const content = getCleanContent(o);
-            return content ? `<div class=""><b>${labels[i]}</b> <span>${content}</span></div>` : "";
+            const label = BENGALI_LABELS[index] || (index + 1) + "."; // Fallback to numbers if labels run out
+            return content ? `<div class="option-row"><span class="option-label">${label}</span><span>${content}</span></div>` : "";
           }).join('') + `</div>`;
-        }  
-        else if ((typeName === "CQ" || typeName === "SQ") && q.sub_questions && q.sub_questions.length > 0) {
-          extraContent = `<div class="${listClass}">` + q.sub_questions.map((sq, i) => {
-            const partContent = getCleanContent(sq.question_text);
-            return partContent ? `<div class="">${labels[i]} ${partContent}</div>` : "";
+        } 
+        // Handle Sub-Questions (CQ)
+        else if (q.sub_questions && q.sub_questions.length > 0) {
+          extra = `<div class="vertical-options">` + q.sub_questions.map((sq, index) => {
+            const content = getCleanContent(sq.question_text);
+            const label = BENGALI_LABELS[index] || (index + 1) + ".";
+            return content ? `<div class="option-row"><span class="option-label">${label}</span><span>${content}</span></div>` : "";
           }).join('') + `</div>`;
         }
-
-        const badgeClass = typeName === 'MCQ' ? 'mcq-badge' : (typeName === 'CQ' ? 'cq-badge' : 'sq-badge');
 
         const div = document.createElement('div');
         div.className = 'question-card';
         div.innerHTML = `
-          <div>
-            <input type="checkbox" onchange="updateSelected()" style="width:auto; margin-right:8px;">
-            <strong>${globalCount}.</strong> <span>${textContent}</span>
+          <div class="q-header">
+            <input type="checkbox" onchange="updateSelected()" style="width:20px; height:20px;">
+            <div><strong>${globalCount}.</strong> ${textContent}</div>
           </div>
-          <div class="q-body"></div>
-          <div style="margin-top:8px;">${subsources}</div>
-          ${extraContent}
+          ${tags ? `<div class="meta-info">${tags}</div>` : ''}
+          ${extra}
         `;
-        allDiv.appendChild(div);
+        document.getElementById('allTab').appendChild(div);
         globalCount++;
       });
       page++;
       await new Promise(r => setTimeout(r, 100));
     } catch (err) { break; }
   }
-}
-
-async function startFetching() {
-  isFetching = true;
-  globalCount = 1;
-  document.getElementById('fetchBtn').disabled = true;
-  document.getElementById('stopBtn').style.display = 'block';
-  document.getElementById('allTab').innerHTML = "";
-  
-  const chapterId = document.getElementById('chapterSelect').value;
-  const choice = document.getElementById('typeSelect').value;
-
-  if (choice === "mcq" || choice === "both") {
-    await fetchByType(chapterId, MCQ_ID, "MCQ");
-  }
-  
-  if (isFetching && (choice === "cq" || choice === "both")) {
-    await fetchByType(chapterId, CQ_ID, "CQ");
-  }
-
-  if (isFetching && (choice === "sq" || choice === "both")) {
-    await fetchByType(chapterId, SQ_ID, "SQ");
-  }
 
   isFetching = false;
-  document.getElementById('status').innerText = "SEARCHING COMPLETE!";
+  document.getElementById('status').innerText = "COMPLETED";
   document.getElementById('fetchBtn').disabled = false;
   document.getElementById('stopBtn').style.display = 'none';
   document.getElementById('tabs').style.display = 'flex';
@@ -278,36 +249,15 @@ function updateSelected() {
   const selectedDiv = document.getElementById('selectedTab');
   selectedDiv.innerHTML = "";
   let count = 1;
-
-  // Select all cards that have a checked checkbox
   document.querySelectorAll('#allTab .question-card').forEach(card => {
     if (card.querySelector('input').checked) {
-      // Clone the card node
       const clone = card.cloneNode(true);
-      
-      // 1. Remove the checkbox and its container from the clone
-      const checkboxContainer = clone.querySelector('div:first-child');
-      const checkbox = clone.querySelector('input[type="checkbox"]');
-      if (checkbox) checkbox.remove();
-
-      // 2. Update the numbering in the <strong> tag
-      const strong = clone.querySelector('strong');
-      if (strong) {
-        // This regex replaces the old "X. " prefix with the new count
-        const originalText = strong.innerHTML;
-        strong.innerHTML = originalText.replace(/^\d+\.\s*/, `${count}. `);
-      }
-
-      // 3. Append to the selected tab
+      clone.querySelector('input').remove();
+      clone.querySelector('strong').innerText = `${count}. `;
       selectedDiv.appendChild(clone);
       count++;
     }
   });
-
-  // Re-run MathJax to ensure formulas in the Selected tab are rendered
-  if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
-    MathJax.typesetPromise([selectedDiv]);
-  }
 }
 
 function showTab(tab, e) {
