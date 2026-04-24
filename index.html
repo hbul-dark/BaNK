@@ -13,62 +13,88 @@
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <style>
+/* Base Styles - Ensuring content fits screen */
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { 
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  width: 100%;
+}
 body { 
   font-family: 'Segoe UI', Arial, sans-serif; 
-  max-width: 100%; 
   margin: 0; 
-  background: #f4f7f9; 
+  background: #000000; 
+  color: #e0e0e0; 
   padding: 10px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.container { width: 100%; max-width: 800px; margin: auto; }
-h2 { text-align: center; color: #2c3e50; font-size: 1.4rem; }
+.container { 
+  width: 100%; 
+  max-width: 800px; /* Limits width on desktop, 100% on mobile */
+}
+
+h2 { text-align: center; color: #2ecc71; font-size: 1.4rem; margin-bottom: 10px; }
+
+/* Inputs & Buttons */
 select, button { 
   width: 100%; padding: 14px; margin: 5px 0; border-radius: 10px; 
-  border: 1px solid #ccc; font-size: 16px; background: #fff;
-  text-align-last: center;
+  border: 1px solid #27ae60; font-size: 16px; 
+  background: #1a1a1a; color: #2ecc71;
+  text-align: center;
 }
-button { background: #4a90e2; color: #fff; border: none; font-weight: 600; cursor: pointer; }
-button:disabled { background: #ccc; }
-#stopBtn { background: #e74c3c; display: none; }
+button { 
+  background: #27ae60; color: #000; border: none; 
+  font-weight: 700; cursor: pointer; 
+}
+button:disabled { background: #1b3d2a; color: #555; }
+#stopBtn { background: #c0392b; color: #fff; display: none; }
 
+/* Question Cards */
 .question-card { 
   padding: 15px; border-radius: 12px; margin-bottom: 15px; 
-  background: #fff; border: 1px solid #e1e8ef; line-height: 1.6; 
+  background: #111; border: 1px solid #27ae60; line-height: 1.6;
+  word-wrap: break-word; /* Wrap long text */
 }
-.q-header { display: flex; align-items: flex-start; gap: 10px; font-size: 17px; color: #1a1a1a; }
+.q-header { display: flex; align-items: flex-start; gap: 10px; font-size: 17px; color: #2ecc71; }
 .meta-info { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Dark Image Fix */
+.q-image { 
+  max-width: 100%; 
+  height: auto; 
+  display: block; 
+  margin: 10px auto; 
+  border-radius: 6px; 
+  border: 1px solid #27ae60;
+  /* This filters white background images to look dark/inverted */
+  filter: grayscale(0.5) invert(0.9) hue-rotate(120deg); 
+  background: #fff; /* Fallback */
+}
+
+/* Badges */
 .badge {
-  background: #e8f5e9;   /* light green background */
-  color: #2e7d32;        /* dark green text */
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  border: 1px solid #2e7d32;
-  font-weight: bold;     /* 👈 makes text bold */
+  background: #000; color: #2ecc71; padding: 2px 8px;
+  border-radius: 4px; font-size: 0.8rem; border: 1px solid #2ecc71;
 }
 
-.vertical-options { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; padding-left: 5px; }
-.option-row { display: flex; gap: 12px; align-items: flex-start; }
-.option-label { font-weight: bold; min-width: 25px; color: #444; }
-.q-image { max-width: 100%; height: auto; display: block; margin: 10px 0; border-radius: 6px; }
+/* Options */
+.vertical-options { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.option-row { display: flex; gap: 12px; align-items: flex-start; color: #ddd; }
+.option-label { font-weight: bold; min-width: 25px; color: #2ecc71; }
 
-.tabs { display: flex; gap: 10px; margin: 15px 0; }
-.tab { flex: 1; padding: 12px; background: #ddd; border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; }
-.tab.active { background: #4a90e2; color: #fff; }
+/* Tabs */
+.tabs { display: flex; gap: 10px; margin: 15px 0; width: 100%; }
+.tab { 
+  flex: 1; padding: 12px; background: #1a1a1a; border: 1px solid #27ae60;
+  border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; color: #27ae60;
+}
+.tab.active { background: #27ae60; color: #000; }
 .hidden { display: none; }
-marquee {
-  color: green;
-}
 
-/* Style for the text container inside the marquee */
-marquee span {
-  font-weight: bold;
-  border: 1px solid red;
-  padding: 1px 2px;
-  display: inline-block; /* Ensures the border wraps the text tightly */
-}
-#status { text-align: center; font-weight: bold; color: #4a90e2; margin: 10px 0; }
+marquee { color: #2ecc71; background: #0a0a0a; padding: 5px 0; width: 100%; }
+marquee span { font-weight: bold; border: 1px solid #27ae60; padding: 2px 5px; }
+#status { text-align: center; font-weight: bold; color: #2ecc71; margin: 10px 0; }
 </style>
 </head>
 <body>
@@ -80,7 +106,7 @@ marquee span {
   
   <select id="subjectSelect"><option value="">LOADING SUBJECTS...</option></select>
   <select id="chapterSelect" disabled><option value="">SELECT CHAPTER</option></select>
-  <select id="typeSelect" disabled><option value="">SELECT TYPE</option></select>
+  <select id="typeSelect" disabled><option value="">SELECT FILTER TYPE</option></select>
 
   <button id="fetchBtn" disabled onclick="startFetching()">Search Questions</button>
   <button id="stopBtn" onclick="stopFetching()">Stop Searching</button>
@@ -102,7 +128,6 @@ const AUTH_TOKEN = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWdpc3RyYXRp
 const headers = { "Authorization": AUTH_TOKEN, "Accept": "application/json" };
 
 let subjectData = [], isFetching = false, globalCount = 1;
-// Added Labels Array
 const BENGALI_LABELS = ['ক.', 'খ.', 'গ.', 'ঘ.', 'ঙ.', 'চ.'];
 
 function getCleanContent(data) {
@@ -155,9 +180,24 @@ document.getElementById('chapterSelect').onchange = async (e) => {
   try {
     const res = await fetch(`${API_BASE}/question/filter-options/${chapterId}`, { headers });
     const json = await res.json();
-    typeSelect.innerHTML = '<option value="">SELECT TYPE</option>';
-    json.types.forEach(type => {
-      typeSelect.innerHTML += `<option value="${type.id}">${type.name}</option>`;
+    
+    typeSelect.innerHTML = '<option value="">SELECT FILTER</option>';
+    const categories = ['types', 'years', 'sub_sources', 'levels', 'tags'];
+    
+    categories.forEach(cat => {
+      if (json[cat] && json[cat].length > 0) {
+        const group = document.createElement('optgroup');
+        group.label = cat.toUpperCase().replace('_', ' ');
+        json[cat].forEach(item => {
+          const option = document.createElement('option');
+          option.value = item.id;
+          option.innerText = item.name;
+          const paramKey = (cat === 'types') ? 'question_type_id[]' : `${cat.slice(0, -1)}_id[]`;
+          option.setAttribute('data-param', paramKey);
+          group.appendChild(option);
+        });
+        typeSelect.appendChild(group);
+      }
     });
     typeSelect.disabled = false;
     document.getElementById('status').innerText = "READY";
@@ -174,7 +214,10 @@ async function startFetching() {
   isFetching = true;
   globalCount = 1;
   const chapterId = document.getElementById('chapterSelect').value;
-  const typeId = document.getElementById('typeSelect').value;
+  const typeSelect = document.getElementById('typeSelect');
+  const selectedOpt = typeSelect.options[typeSelect.selectedIndex];
+  const paramKey = selectedOpt.getAttribute('data-param');
+  const typeId = typeSelect.value;
   
   document.getElementById('fetchBtn').disabled = true;
   document.getElementById('stopBtn').style.display = 'block';
@@ -185,7 +228,7 @@ async function startFetching() {
   while (isFetching) {
     document.getElementById('status').innerText = `FETCHING PAGE ${page}...`;
     try {
-      const res = await fetch(`${API_BASE}/v2/question/${chapterId}?page=${page}&question_type_id[]=${typeId}`, { headers });
+      const res = await fetch(`${API_BASE}/v2/question/${chapterId}?page=${page}&${paramKey}=${typeId}`, { headers });
       const json = await res.json();
       const qs = json?.data?.questions || [];
       if (qs.length === 0) break;
@@ -201,17 +244,13 @@ async function startFetching() {
         }).join(' ');
 
         let extra = "";
-        
-        // Handle Options (MCQ)
         if (q.option && q.option.length > 0) {
           extra = `<div class="vertical-options">` + q.option.map((o, index) => {
             const content = getCleanContent(o);
-            const label = BENGALI_LABELS[index] || (index + 1) + "."; // Fallback to numbers if labels run out
+            const label = BENGALI_LABELS[index] || (index + 1) + ".";
             return content ? `<div class="option-row"><span class="option-label">${label}</span><span>${content}</span></div>` : "";
           }).join('') + `</div>`;
-        } 
-        // Handle Sub-Questions (CQ)
-        else if (q.sub_questions && q.sub_questions.length > 0) {
+        } else if (q.sub_questions && q.sub_questions.length > 0) {
           extra = `<div class="vertical-options">` + q.sub_questions.map((sq, index) => {
             const content = getCleanContent(sq.question_text);
             const label = BENGALI_LABELS[index] || (index + 1) + ".";
