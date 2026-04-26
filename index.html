@@ -34,29 +34,29 @@ body {
   max-width: 800px; /* Limits width on desktop, 100% on mobile */
 }
 
-h2 { text-align: center; color: #00ffff; font-size: 1.4rem; margin-bottom: 10px; }
+h2 { text-align: center; color: #00ff00; font-size: 1.4rem; margin-bottom: 10px; }
 
 /* Inputs & Buttons */
 select, button { 
   width: 100%; padding: 14px; margin: 5px 0; border-radius: 10px; 
-  border: 1px solid#00ffff; font-size: 16px; 
-  background: #1a1a1a; color: #00ffff;
+  border: 1px solid#00ff00; font-size: 16px; 
+  background: #1a1a1a; color: #00ff00;
   text-align: center;
 }
 button { 
-  background:#00ffff; color: #000; border: none; 
+  background:#00ff00; color: #000; border: none; 
   font-weight: 700; cursor: pointer; 
 }
-button:disabled { background: #00ffff; color: #000000; }
+button:disabled { background: #00ff00; color: #000000; }
 #stopBtn { background: #c0392b; color: #fff; display: none; }
 
 /* Question Cards */
 .question-card { 
   padding: 15px; border-radius: 12px; margin-bottom: 15px; 
-  background: #111; border: 1px solid#00ffff; line-height: 1.6;
+  background: #111; border: 1px solid#00ff00; line-height: 1.6;
   word-wrap: break-word; /* Wrap long text */
 }
-.q-header { display: flex; align-items: flex-start; gap: 10px; font-size: 17px; color: #00ffff; }
+.q-header { display: flex; align-items: flex-start; gap: 10px; font-size: 17px; color: #00ff00; }
 .meta-info { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
 
 /* Dark Image Fix */
@@ -64,37 +64,35 @@ button:disabled { background: #00ffff; color: #000000; }
   max-width: 100%; 
   height: auto; 
   display: block; 
-  margin: 10px auto; 
-  border-radius: 6px; 
-  border: 1px solid#00ffff;
-  /* This filters white background images to look dark/inverted */
-  filter: grayscale(0.5) invert(0.9) hue-rotate(120deg); 
-  background: #fff; /* Fallback */
+  margin: 15px auto; 
+  border-radius: 8px; 
+  border: 1px solid #00ff00;
+  background: #ffffff; /* Keeps images clear on white background */
 }
 
 /* Badges */
 .badge {
-  background: #000; color: #00ffff; padding: 2px 8px;
-  border-radius: 4px; font-size: 0.8rem; border: 1px solid #00ffff;
+  background: #000; color: #00ff00; padding: 2px 8px;
+  border-radius: 4px; font-size: 0.8rem; border: 1px solid #00ff00;
 }
 
 /* Options */
 .vertical-options { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
-.option-row { display: flex; gap: 12px; align-items: flex-start; color: #00ffff; }
-.option-label { font-weight: bold; min-width: 25px; color: #00ffff; }
+.option-row { display: flex; gap: 12px; align-items: flex-start; color: #00ff00; }
+.option-label { font-weight: bold; min-width: 25px; color: #00ff00; }
 
 /* Tabs */
 .tabs { display: flex; gap: 10px; margin: 15px 0; width: 100%; }
 .tab { 
-  flex: 1; padding: 12px; background: #1a1a1a; border: 1px solid#00ffff;
-  border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; color:#00ffff;
+  flex: 1; padding: 12px; background: #1a1a1a; border: 1px solid#00ff00;
+  border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; color:#00ff00;
 }
-.tab.active { background:#00ffff; color: #000; }
+.tab.active { background:#00ff00; color: #000; }
 .hidden { display: none; }
 
-marquee { color: #00ffff; background: #0a0a0a; padding: 5px 0; width: 100%; }
-marquee span { font-weight: bold; border: 1px solid#00ffff; padding: 2px 5px; }
-#status { text-align: center; font-weight: bold; color: #00ffff; margin: 10px 0; }
+marquee { color: #00ff00; background: #0a0a0a; padding: 5px 0; width: 100%; }
+marquee span { font-weight: bold; border: 1px solid#00ff00; padding: 2px 5px; }
+#status { text-align: center; font-weight: bold; color: #00ff00; margin: 10px 0; }
 </style>
 </head>
 <body>
@@ -226,7 +224,7 @@ async function startFetching() {
   let page = 1;
 
   while (isFetching) {
-    document.getElementById('status').innerText = `FETCHING PAGE ${page}...`;
+    document.getElementById('status').innerText = `PAGE ${page}`;
     try {
       const res = await fetch(`${API_BASE}/v2/question/${chapterId}?page=${page}&${paramKey}=${typeId}`, { headers });
       const json = await res.json();
