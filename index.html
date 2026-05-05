@@ -13,17 +13,17 @@
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <style>
-/* Base Styles - Ensuring content fits screen */
+/* Base Styles - Deep Green & Black Theme */
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { 
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden; 
   width: 100%;
 }
 body { 
-  font-family: 'Segoe UI', Arial, sans-serif; 
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
   margin: 0; 
-  background: #000000; 
-  color: #e0e0e0; 
+  background: #000000; /* Pure Black Background */
+  color: #00ff00; /* Light Gray Text for readability */
   padding: 10px; 
   display: flex;
   flex-direction: column;
@@ -31,35 +31,39 @@ body {
 }
 .container { 
   width: 100%; 
-  max-width: 800px; /* Limits width on desktop, 100% on mobile */
+  max-width: 800px; 
 }
 
-h2 { text-align: center; color: #00ff00; font-size: 1.4rem; margin-bottom: 10px; }
+h2 { text-align: center; color: #00ff00; font-size: 1.4rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
 
-/* Inputs & Buttons */
+/* Inputs & Buttons - Deep Green Accents */
 select, button { 
-  width: 100%; padding: 14px; margin: 5px 0; border-radius: 10px; 
-  border: 1px solid#00ff00; font-size: 16px; 
-  background: #1a1a1a; color: #00ff00;
+  width: 100%; padding: 14px; margin: 8px 0; border-radius: 8px; 
+  border: 1.5px solid #00ff00; font-size: 16px; 
+  background: #121212; color: #00ff00;
   text-align: center;
+  transition: all 0.3s ease;
 }
 button { 
-  background:#00ff00; color: #000; border: none; 
+  background: #00ff00; color: #ffffff; border: none; 
   font-weight: 700; cursor: pointer; 
 }
-button:disabled { background: #00ff00; color: #000000; }
+button:hover { background: #00ff00; }
+button:disabled { background: #00ff00; color: #000000; opacity: 0.6; cursor: not-allowed; }
 #stopBtn { background: #c0392b; color: #fff; display: none; }
 
 /* Question Cards */
 .question-card { 
-  padding: 15px; border-radius: 12px; margin-bottom: 15px; 
-  background: #111; border: 1px solid#00ff00; line-height: 1.6;
-  word-wrap: break-word; /* Wrap long text */
+  padding: 20px; border-radius: 12px; margin-bottom: 20px; 
+  background: #0a0a0a; border: 1px solid #00ff00; 
+  box-shadow: 0 4px 10px rgba(0, 255, 0, 0.05);
+  line-height: 1.7;
+  word-wrap: break-word;
 }
-.q-header { display: flex; align-items: flex-start; gap: 10px; font-size: 17px; color: #00ff00; }
-.meta-info { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.q-header { display: flex; align-items: flex-start; gap: 12px; font-size: 17px; color: #00ff00; font-weight: 500; }
+.meta-info { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
 
-/* Dark Image Fix */
+/* Image Styling - Original View (White Background for clarity) */
 .q-image { 
   max-width: 100%; 
   height: auto; 
@@ -72,27 +76,30 @@ button:disabled { background: #00ff00; color: #000000; }
 
 /* Badges */
 .badge {
-  background: #000; color: #00ff00; padding: 2px 8px;
-  border-radius: 4px; font-size: 0.8rem; border: 1px solid #00ff00;
+  background: #000000; color: #00ff00; padding: 4px 10px;
+  border-radius: 6px; font-size: 0.75rem; border: 1px solid #00ff00;
+  font-weight: 600;
 }
 
 /* Options */
-.vertical-options { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
-.option-row { display: flex; gap: 12px; align-items: flex-start; color: #00ff00; }
-.option-label { font-weight: bold; min-width: 25px; color: #00ff00; }
+.vertical-options { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+.option-row { 
+  display: flex; gap: 12px; align-items: flex-start; 
+  padding: 8px; border-radius: 6px; background: #0d0d0d;
+}
+.option-label { font-weight: bold; min-width: 30px; color: #00ff00; }
 
 /* Tabs */
-.tabs { display: flex; gap: 10px; margin: 15px 0; width: 100%; }
+.tabs { display: flex; gap: 12px; margin: 20px 0; width: 100%; }
 .tab { 
-  flex: 1; padding: 12px; background: #1a1a1a; border: 1px solid#00ff00;
-  border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; color:#00ff00;
+  flex: 1; padding: 12px; background: #000000; border: 1.5px solid #00ff00;
+  border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; color: #00ff00;
 }
-.tab.active { background:#00ff00; color: #000; }
+.tab.active { background: #00ff00; color: #000000; }
 .hidden { display: none; }
 
-marquee { color: #00ff00; background: #0a0a0a; padding: 5px 0; width: 100%; }
-marquee span { font-weight: bold; border: 1px solid#00ff00; padding: 2px 5px; }
-#status { text-align: center; font-weight: bold; color: #00ff00; margin: 10px 0; }
+marquee { color: #000000; background: #00ff00; padding: 8px 0; width: 100%; border-radius: 4px; font-size: 0.9rem; }
+#status { text-align: center; font-weight: bold; color: #00ff00; margin: 15px 0; letter-spacing: 0.5px; }
 </style>
 </head>
 <body>
@@ -102,7 +109,7 @@ marquee span { font-weight: bold; border: 1px solid#00ff00; padding: 2px 5px; }
   <marquee>
   <span>| NOTE : Dear user this site created by Author 'ARE' for your education exploration. Thank You.. |</span></marquee>
   
-  <select id="subjectSelect"><option value="">LOADING SUBJECTS...</option></select>
+  <select id="subjectSelect"><option value="">LOADING</option></select>
   <select id="chapterSelect" disabled><option value="">SELECT CHAPTER</option></select>
   <select id="typeSelect" disabled><option value="">SELECT FILTER TYPE</option></select>
 
@@ -121,12 +128,54 @@ marquee span { font-weight: bold; border: 1px solid#00ff00; padding: 2px 5px; }
 </div>
 
 <script>
+// Change const to let so we can update it
 const API_BASE = "https://api.daricomma.com";
-const AUTH_TOKEN = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWdpc3RyYXRpb25fZGF0ZSI6IjIwMjQtMDEtMjlUMDk6NTc6NDMuMjg2WiIsImlkIjoiMzczN2FjMjYtNjYyNS00MzJmLTgzMTktNmJmNTJmM2NhNDFjIiwiZnVsbG5hbWUiOiJSYXNlbCIsInJvbGUiOiJ2aXNpdG9yIiwiZW1haWwiOm51bGwsIm1vYmlsZSI6IjAxODE3MTY2MTY4IiwiaHR0cHM6Ly9oYXN1cmEuaW8vand0L2NsYWltcyI6eyJ4LWhhc3VyYS1hbGxvd2VkLXJvbGVzIjpbInZpc2l0b3IiXSwieC1oYXN1cmEtZGVmYXVsdC1yb2xlIjoidmlzaXRvciIsIngtaGFzdXJhLXVzZXItaWQiOiIzNzM3YWMyNi02NjI1LTQzMmYtODMxOS02YmY1MmYzY2E0MWMiLCJ4LWhhc3VyYS11c2VyLXJvbGUiOiJ2aXNpdG9yIiwieC1oYXN1cmEtdXNlci1lbWFpbCI6bnVsbCwieC1oYXN1cmEtdXNlci1tb2JpbGUiOiIwMTgxNzE2NjE2OCJ9LCJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3NzY4Mzc4NzIsImV4cCI6MTc3NzQ0MjY3Mn0.Q4f9WXun23iO4U5wCJQAAdhFVgC4Q5Q60rUZjHjljYA";
-const headers = { "Authorization": AUTH_TOKEN, "Accept": "application/json" };
+// We use 'let' so the token can be updated when it expires
+let AUTH_TOKEN = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWdpc3RyYXRpb25fZGF0ZSI6IjIwMjQtMDEtMjlUMDk6NTc6NDMuMjg2WiIsImlkIjoiMzczN2FjMjYtNjYyNS00MzJmLTgzMTktNmJmNTJmM2NhNDFjIiwiZnVsbG5hbWUiOiJSYXNlbCIsInJvbGUiOiJ2aXNpdG9yIiwiZW1haWwiOm51bGwsIm1vYmlsZSI6IjAxODE3MTY2MTY4IiwiaHR0cHM6Ly9oYXN1cmEuaW8vand0L2NsYWltcyI6eyJ4LWhhc3VyYS1hbGxvd2VkLXJvbGVzIjpbInZpc2l0b3IiXSwieC1oYXN1cmEtZGVmYXVsdC1yb2xlIjoidmlzaXRvciIsIngtaGFzdXJhLXVzZXItaWQiOiIzNzM3YWMyNi02NjI1LTQzMmYtODMxOS02YmY1MmYzY2E0MWMiLCJ4LWhhc3VyYS11c2VyLXJvbGUiOiJ2aXNpdG9yIiwieC1oYXN1cmEtdXNlci1lbWFpbCI6bnVsbCwieC1oYXN1cmEtdXNlci1tb2JpbGUiOiIwMTgxNzE2NjE2OCJ9LCJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3NzY4Mzc4NzIsImV4cCI6MTc3NzQ0MjY3Mn0.Q4f9WXun23iO4U5wCJQAAdhFVgC4Q5Q60rUZjHjljYA";
 
 let subjectData = [], isFetching = false, globalCount = 1;
 const BENGALI_LABELS = ['ক.', 'খ.', 'গ.', 'ঘ.', 'ঙ.', 'চ.'];
+
+// NEW: Function to login and get a fresh token automatically
+async function refreshLogin() {
+    console.log("Token expired. Logging in again...");
+    try {
+        const res = await fetch(`${API_BASE}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'mobile': '01751026914',
+                'password': '1c82b2323dc083bd812874536294e45bb678213f1cc52d880e80e6da6c39ff8c'
+            })
+        });
+        const data = await res.json();
+        if (data.access_token) {
+            AUTH_TOKEN = `Bearer ${data.access_token}`;
+            return true;
+        }
+    } catch (e) {
+        console.error("Auto-login failed", e);
+    }
+    return false;
+}
+
+// NEW: Smart fetcher that handles the "Expired" error
+async function smartFetch(url) {
+    let res = await fetch(url, { 
+        headers: { "Authorization": AUTH_TOKEN, "Accept": "application/json" } 
+    });
+
+    if (res.status === 401) { // 401 means "Token Expired"
+        const success = await refreshLogin();
+        if (success) {
+            // Try again with the brand new token
+            res = await fetch(url, { 
+                headers: { "Authorization": AUTH_TOKEN, "Accept": "application/json" } 
+            });
+        }
+    }
+    return res;
+}
 
 function getCleanContent(data) {
   if (!data || data === "undefined") return "";
@@ -150,7 +199,7 @@ function getCleanContent(data) {
 
 async function init() {
   try {
-    const res = await fetch(`${API_BASE}/field`, { headers });
+    const res = await smartFetch(`${API_BASE}/field`);
     const json = await res.json();
     json.data.curriculums.forEach(c => c.versions.forEach(v => v.classes.forEach(cls => {
       (cls.groups || []).forEach(g => subjectData.push(...g.subjects));
@@ -176,7 +225,7 @@ document.getElementById('chapterSelect').onchange = async (e) => {
   if (!chapterId) return;
   document.getElementById('status').innerText = "LOADING FILTERS...";
   try {
-    const res = await fetch(`${API_BASE}/question/filter-options/${chapterId}`, { headers });
+    const res = await smartFetch(`${API_BASE}/question/filter-options/${chapterId}`);
     const json = await res.json();
     
     typeSelect.innerHTML = '<option value="">SELECT FILTER</option>';
@@ -226,7 +275,7 @@ async function startFetching() {
   while (isFetching) {
     document.getElementById('status').innerText = `PAGE ${page}`;
     try {
-      const res = await fetch(`${API_BASE}/v2/question/${chapterId}?page=${page}&${paramKey}=${typeId}`, { headers });
+      const res = await smartFetch(`${API_BASE}/v2/question/${chapterId}?page=${page}&${paramKey}=${typeId}`);
       const json = await res.json();
       const qs = json?.data?.questions || [];
       if (qs.length === 0) break;
