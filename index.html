@@ -13,7 +13,7 @@
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <style>
-/* Base Styles - Deep Green & Black Theme */
+/* Base Styles - Clean White Theme */
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { 
   overflow-x: hidden; 
@@ -22,8 +22,8 @@ html, body {
 body { 
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
   margin: 0; 
-  background: #000000; /* Pure Black Background */
-  color: #00ff00; /* Light Gray Text for readability */
+  background: #ffffff; /* White Background */
+  color: #000000; /* Black Text */
   padding: 10px; 
   display: flex;
   flex-direction: column;
@@ -34,50 +34,50 @@ body {
   max-width: 800px; 
 }
 
-h2 { text-align: center; color: #00ff00; font-size: 1.4rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+h2 { text-align: center; color: #000000; font-size: 1.4rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
 
-/* Inputs & Buttons - Deep Green Accents */
+/* Inputs & Buttons - Professional Grey/Black Accents */
 select, button { 
   width: 100%; padding: 14px; margin: 8px 0; border-radius: 8px; 
-  border: 1.5px solid #00ff00; font-size: 16px; 
-  background: #121212; color: #00ff00;
+  border: 1.5px solid #cccccc; font-size: 16px; 
+  background: #ffffff; color: #000000;
   text-align: center;
   transition: all 0.3s ease;
 }
 button { 
-  background: #00ff00; color: #ffffff; border: none; 
+  background: #000000; color: #ffffff; border: none; 
   font-weight: 700; cursor: pointer; 
 }
-button:hover { background: #00ff00; }
-button:disabled { background: #00ff00; color: #000000; opacity: 0.6; cursor: not-allowed; }
+button:hover { background: #333333; }
+button:disabled { background: #cccccc; color: #666666; cursor: not-allowed; }
 #stopBtn { background: #c0392b; color: #fff; display: none; }
 
 /* Question Cards */
 .question-card { 
   padding: 20px; border-radius: 12px; margin-bottom: 20px; 
-  background: #0a0a0a; border: 1px solid #00ff00; 
-  box-shadow: 0 4px 10px rgba(0, 255, 0, 0.05);
+  background: #f9f9f9; border: 1px solid #eeeeee; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   line-height: 1.7;
   word-wrap: break-word;
 }
-.q-header { display: flex; align-items: flex-start; gap: 12px; font-size: 17px; color: #00ff00; font-weight: 500; }
+.q-header { display: flex; align-items: flex-start; gap: 12px; font-size: 17px; color: #000000; font-weight: 500; }
 .meta-info { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
 
-/* Image Styling - Original View (White Background for clarity) */
+/* Image Styling */
 .q-image { 
   max-width: 100%; 
   height: auto; 
   display: block; 
   margin: 15px auto; 
   border-radius: 8px; 
-  border: 1px solid #00ff00;
-  background: #ffffff; /* Keeps images clear on white background */
+  border: 1px solid #ddd;
+  background: #ffffff; 
 }
 
 /* Badges */
 .badge {
-  background: #000000; color: #00ff00; padding: 4px 10px;
-  border-radius: 6px; font-size: 0.75rem; border: 1px solid #00ff00;
+  background: #f0f0f0; color: #333333; padding: 4px 10px;
+  border-radius: 6px; font-size: 0.75rem; border: 1px solid #ccc;
   font-weight: 600;
 }
 
@@ -85,21 +85,21 @@ button:disabled { background: #00ff00; color: #000000; opacity: 0.6; cursor: not
 .vertical-options { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
 .option-row { 
   display: flex; gap: 12px; align-items: flex-start; 
-  padding: 8px; border-radius: 6px; background: #0d0d0d;
+  padding: 8px; border-radius: 6px; background: #ffffff; border-bottom: 1px solid #f0f0f0;
 }
-.option-label { font-weight: bold; min-width: 30px; color: #00ff00; }
+.option-label { font-weight: bold; min-width: 30px; color: #000000; }
 
 /* Tabs */
 .tabs { display: flex; gap: 12px; margin: 20px 0; width: 100%; }
 .tab { 
-  flex: 1; padding: 12px; background: #000000; border: 1.5px solid #00ff00;
-  border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; color: #00ff00;
+  flex: 1; padding: 12px; background: #ffffff; border: 1.5px solid #000000;
+  border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; color: #000000;
 }
-.tab.active { background: #00ff00; color: #000000; }
+.tab.active { background: #000000; color: #ffffff; }
 .hidden { display: none; }
 
-marquee { color: #000000; background: #00ff00; padding: 8px 0; width: 100%; border-radius: 4px; font-size: 0.9rem; }
-#status { text-align: center; font-weight: bold; color: #00ff00; margin: 15px 0; letter-spacing: 0.5px; }
+marquee { color: #000000; background: #ffffff; padding: 8px 0; width: 100%; border-radius: 4px; font-size: 0.9rem; }
+#status { text-align: center; font-weight: bold; color: #333333; margin: 15px 0; letter-spacing: 0.5px; }
 </style>
 </head>
 <body>
