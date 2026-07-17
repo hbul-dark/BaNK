@@ -140,7 +140,7 @@ const BENGALI_LABELS = ['ক.', 'খ.', 'গ.', 'ঘ.', 'ঙ.', 'চ.'];
 async function refreshLogin() {
     console.log("Token expired. Logging in again...");
     try {
-        const res = await fetch(`${API_BASE}/auth/login`, {
+        const res = await fetch(`https://daricomma.com/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
